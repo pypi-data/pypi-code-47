@@ -1,0 +1,3 @@
+from .disablesubject import DisableSubjectCommandHandler
+from .enablesubject import EnableSubjectCommandHandler
+from .registeruser import RegisterUserCommandHandler
