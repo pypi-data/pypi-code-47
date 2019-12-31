@@ -1,0 +1,1 @@
+from gym_shopping_cart.envs.shopping_cart_v0 import ShoppingCart
