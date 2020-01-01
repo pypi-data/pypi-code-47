@@ -1,0 +1,1 @@
+from .kittycap import KittyCap, KittyWait
