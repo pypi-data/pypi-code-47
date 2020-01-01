@@ -1,0 +1,7 @@
+
+API_TOKEN = "YOUR_API_TOKEN"
+SERVER_MODE = "sandbox"  # sandbox or production
+CLIENT_ID = "YOUR_CLIENT_ID"
+CLIENT_SECRET = "YOUR_CLIENT_SECRET"
+
+ACCESS_TOKEN = "SET_USER_ACCESS_TOKEN" # user access token
