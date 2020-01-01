@@ -1,0 +1,17 @@
+
+API_TOKEN = "YOUR_API_TOKEN"
+SERVER_MODE = "sandbox"  # sandbox or production
+CLIENT_ID = "YOUR_CLIENT_ID"
+CLIENT_SECRET = "YOUR_CLIENT_SECRET"
+REDIRECT_URL = "YOUR_REDIRECT_URL" # defined in http://panel.pod.ir
+
+ACCESS_TOKEN = "SET_USER_ACCESS_TOKEN" # user access token
+
+# OTP config
+KEY_ID = "KEY_ID_IN_RESULT_HANDSHAKE_METHOD"
+IDENTITY_PHONE = "09370000041"
+IDENTITY_EMAIL = "rz***re@gmail.com"
+OTP_CODE = "GIVE_FROM_USER"
+
+# path of private key (pem file)
+PRIVATE_KEY_PATH = "/PATH/TO/PEM/PRIVATE/KEY"
