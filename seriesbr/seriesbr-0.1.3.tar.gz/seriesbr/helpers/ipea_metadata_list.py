@@ -1,0 +1,17 @@
+ipea_metadata_list = {
+    "SERNOME": "Name",
+    "SERCODIGO": "Code",
+    "PERNOME": "Frequency",
+    "UNINOME": "Unit of measurement",
+    "BASNOME": "Basis's name",
+    "TEMCODIGO": "Theme's code",
+    "PAICODIGO": "Country / Region's code",
+    "SERCOMENTARIO": "Comments/Notes",
+    "FNTNOME": "Source's name",
+    "FNTSIGLA": "Source's initials",
+    "FNTURL": "Source's url",
+    "MULNOME": "Multiplicative factor",
+    "SERATUALIZACAO": "When it was last updated",
+    "SERSTATUS": "Active ('A'), Inactive ('I')",
+    "SERNUMERICA": "Numeric (1), Alphanumeric (0)",
+}
