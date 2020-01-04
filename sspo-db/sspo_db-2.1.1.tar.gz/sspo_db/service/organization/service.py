@@ -1,0 +1,28 @@
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sspo_db.model.organization.models import *
+from sspo_db.service.base_service import BaseService
+
+class OrganizationService(BaseService):
+    def __init__(self):
+        super(OrganizationService,self).__init__(Organization)
+
+class TeamService(BaseService):
+    def __init__(self):
+        super(TeamService,self).__init__(Team)
+
+class ComplexTeamService(BaseService):
+    def __init__(self):
+        super(ComplexTeamService,self).__init__(ComplexTeam)
+
+class AtomicTeamService(BaseService):
+    def __init__(self):
+        super(AtomicTeamService,self).__init__(AtomicTeam)
+
+class ScrumTeamService(BaseService):
+    def __init__(self):
+        super(ScrumTeamService,self).__init__(ScrumTeam)
+
+class DevelopmentTeamService(BaseService):
+    def __init__(self):
+        super(DevelopmentTeamService,self).__init__(DevelopmentTeam)
