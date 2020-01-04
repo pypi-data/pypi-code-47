@@ -1,0 +1,63 @@
+import re
+
+from markdown import Markdown
+from markdown.extensions import Extension
+from markdown.postprocessors import Postprocessor
+from markdown.preprocessors import Preprocessor
+
+PREFIX_PLACEHOLDER = "OMtxTKldR2f1LZ5Q"
+
+
+class CommentsExtension(Extension):
+    def extendMarkdown(self, md: Markdown):
+        md.registerExtension(self)
+        md.preprocessors.register(CommentMunger(md), "comment_munger", 105)
+        md.preprocessors.register(CommentRemover(md), "comment_remover", 105)
+        md.postprocessors.register(RawCommentReplacer(md), "raw_comment_replacer", 105)
+
+
+class CommentMunger(Preprocessor):
+    def run(self, lines):
+        return [re.sub(r"<!---", PREFIX_PLACEHOLDER, line) for line in lines]
+
+
+class CommentRemover(Preprocessor):
+    def run(self, lines):
+        new_lines = []
+        is_multi = False
+        for line in lines:
+            if not is_multi:
+                new_line, is_multi = self._uncommenter(line)
+            else:
+                new_line, is_multi = self._unmultiliner(line)
+            new_lines.append(new_line)
+        return new_lines
+
+    def _uncommenter(self, line):
+        # inline
+        line = re.sub(r"\s*" + PREFIX_PLACEHOLDER + r".*?-->", "", line)
+
+        # start multiline
+        line, count = re.subn(r"\s*" + PREFIX_PLACEHOLDER + r".*", "", line)
+
+        return line, bool(count)
+
+    def _unmultiliner(self, line):
+        new_line, count = re.subn(r".*?-->", "", line, count=1)
+
+        # end multiline
+        if count > 0:
+            return self._uncommenter(new_line)
+
+        # continue multiline
+        else:
+            return "", True
+
+
+class RawCommentReplacer(Postprocessor):
+    def run(self, text):
+        return re.sub(PREFIX_PLACEHOLDER, "<!---", text)
+
+
+def makeExtension(**kwargs):
+    return CommentsExtension(**kwargs)
