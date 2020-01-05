@@ -1,0 +1,5 @@
+FINANCE_GCP_BUCKET='sport-uploads'
+FINANCE_DATA_DATASETID='Finance_Data'
+FINANCE_STOCKS_1YEAR_TABLEID='eod_daily_history_1year_2018_2019'
+# FINANCE_STOCKS_1YEAR_TABLEID='eod_daily_history_1year'
+FINANCE_TEMP_DIR='Finance/temp'
