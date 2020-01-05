@@ -1,0 +1,20 @@
+#!/usr/bin/python3
+# -*- coding: utf8 -*-
+#
+# @author: natloc_developer
+# @date: 2020/1/2
+# @time: 15:03
+# @doc:
+# Copyright © 2020 natloc_developer. All rights reserved.
+#
+
+import sys
+import os
+
+sys.path.insert(0, os.path.dirname(sys.path[0]))
+print(sys.path[0])
+
+import nat.datetime
+from thd.calendar.ics import ICS_XiaoBangGuiHua
+
+print(ICS_XiaoBangGuiHua().reqIcal().isEventDay())
