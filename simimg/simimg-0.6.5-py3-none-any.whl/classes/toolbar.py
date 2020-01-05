@@ -1,0 +1,64 @@
+''' Modules that defines a oolbar with action items'''
+import os
+from tkinter import ttk
+from . import tooltip as TT
+from ..dialogs import infowindow as IW
+from ..utils import pillowplus as PP
+
+class Toolbar(ttk.Frame):
+    " A toolbar frame that holds the action buttons"
+    def __init__(self, parent, Controller=None):
+        super().__init__(parent)
+
+        iconpath = Controller.Cfg.get('iconpath')
+        self.addImg = PP.photoImageOpen(os.path.join(iconpath, "add.png"))
+        self.deleteImg = PP.photoImageOpen(os.path.join(iconpath, "delete.png"))
+        self.exitImg = PP.photoImageOpen(os.path.join(iconpath, "exit.png"))
+        self.hideImg = PP.photoImageOpen(os.path.join(iconpath, "hide.png"))
+        self.infoImg = PP.photoImageOpen(os.path.join(iconpath, "info.png"))
+        self.openImg = PP.photoImageOpen(os.path.join(iconpath, "open.png"))
+        self.playImg = PP.photoImageOpen(os.path.join(iconpath, "play.png"))
+        self.refreshImg = PP.photoImageOpen(os.path.join(iconpath, "refresh.png"))
+        self.settingsImg = PP.photoImageOpen(os.path.join(iconpath, "settings.png"))
+        self.uncheckImg = PP.photoImageOpen(os.path.join(iconpath, "uncheck.png"))
+
+        self.exitButton = ttk.Button(self, image=self.exitImg, style="Picture.TButton", command=Controller.exitProgram)
+        self.settingsButton = ttk.Button(self, image=self.settingsImg, style="Picture.TButton", command=Controller.configureProgram)
+        #
+        self.infoButton = ttk.Button(self, image=self.infoImg, style="Picture.TButton", command=IW.showInfoDialog)
+
+        self.openButton = ttk.Button(self, image=self.openImg, style="Picture.TButton", command=Controller.openFolder)
+        self.addButton = ttk.Button(self, image=self.addImg, style="Picture.TButton", command=Controller.addFolder)
+        #
+        self.refreshButton = ttk.Button(self, image=self.refreshImg, style="Picture.TButton", command=Controller.resetThumbnails)
+
+        self.uncheckButton = ttk.Button(self, image=self.uncheckImg, style="Picture.TButton", command=Controller.unselectThumbnails)
+        self.deleteButton = ttk.Button(self, image=self.deleteImg, style="Picture.TButton", command=Controller.deleteSelected)
+        self.hideButton = ttk.Button(self, image=self.hideImg, style="Picture.TButton", command=Controller.hideSelected)
+        self.playButton = ttk.Button(self, image=self.playImg, style="Picture.TButton", command=Controller.viewSelected)
+
+        self.exitButton.grid(column=0, row=0)
+        self.settingsButton.grid(column=1, row=0)
+        #
+        self.infoButton.grid(column=3, row=0)
+
+        self.openButton.grid(column=0, row=1)
+        self.addButton.grid(column=1, row=1)
+        #
+        self.refreshButton.grid(column=3, row=1)
+
+        self.uncheckButton.grid(column=0, row=2)
+        self.deleteButton.grid(column=1, row=2)
+        self.hideButton.grid(column=2, row=2)
+        self.playButton.grid(column=3, row=2)
+
+        TT.Tooltip(self.addButton, text='Add folder of images')
+        TT.Tooltip(self.deleteButton, text='Delete Selected Images')
+        TT.Tooltip(self.exitButton, text='Quit')
+        TT.Tooltip(self.hideButton, text='Hide Selected Images')
+        TT.Tooltip(self.infoButton, text='Quick instructions')
+        TT.Tooltip(self.openButton, text='Open folder of images')
+        TT.Tooltip(self.playButton, text='View Selected Images')
+        TT.Tooltip(self.refreshButton, text='Start fresh with all images shown')
+        TT.Tooltip(self.settingsButton, text='Settings')
+        TT.Tooltip(self.uncheckButton, text='Unselect all images')
