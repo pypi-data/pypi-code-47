@@ -1,0 +1,1 @@
+from loginspect.endpoint import register_endpoint
