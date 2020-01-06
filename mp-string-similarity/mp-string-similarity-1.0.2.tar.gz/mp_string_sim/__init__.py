@@ -1,0 +1,1 @@
+__name__ = 'mp_str_sim'
