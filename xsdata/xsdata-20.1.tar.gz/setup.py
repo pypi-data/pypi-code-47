@@ -1,0 +1,37 @@
+import os
+
+from setuptools import find_packages, setup
+
+here = os.path.abspath(os.path.dirname(__file__))
+
+meta = dict()  # type: dict
+with open(os.path.join(here, "xsdata", "version.py"), encoding="utf-8") as f:
+    exec(f.read(), meta)
+
+if __name__ == "__main__":
+    setup(
+        packages=find_packages(),
+        version=meta["version"],
+        include_package_data=True,
+        install_requires=[
+            "lxml",
+            "click",
+            "click_log",
+            "toposort",
+            "docformatter",
+            "jinja2",
+        ],
+        extras_require={
+            "dev": ["pre-commit", "pytest", "pytest-cov", "codecov", "tox"],
+            "docs": [
+                "sphinx",
+                "sphinx-autobuild",
+                "sphinx-material",
+                "sphinx-autodoc-typehints",
+                "sphinxcontrib-apidoc",
+                "sphinxcontrib-programoutput",
+                "sphinxcontrib-osexample",
+            ],
+        },
+        entry_points={"console_scripts": ["xsdata=xsdata:cli"]},
+    )
