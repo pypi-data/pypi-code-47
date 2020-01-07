@@ -1,0 +1,2 @@
+import MESA_Plotter._MESA_Plotter
+from MESA_Plotter._MESA_Plotter.MESA_Plotter import plot_diagram
