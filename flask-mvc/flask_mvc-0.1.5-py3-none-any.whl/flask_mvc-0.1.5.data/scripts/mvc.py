@@ -1,0 +1,1 @@
+from flask_mvc_app import app
