@@ -1,0 +1,107 @@
+
+'''
+This is auto-generated file,
+which includes metadata for module Cisco_IOS_XR_sysadmin_entity_state_mib
+'''
+
+from ydk._core._dm_meta_info import _MetaInfoClassMember, _MetaInfoClass, _MetaInfoEnum
+from ydk._core._dm_meta_info import ATTRIBUTE, REFERENCE_LIST, REFERENCE_LEAFLIST, REFERENCE_BITS, REFERENCE_UNION
+from ydk._core._dm_meta_info import REFERENCE_CLASS, REFERENCE_IDENTITY_CLASS, REFERENCE_ENUM_CLASS, ANYXML_CLASS
+from ydk._core._importer import _yang_ns
+
+_meta_table = {
+    'ENTITYSTATEMIB.EntStateTable.EntStateEntry' : {
+        'meta_info' : _MetaInfoClass('ENTITYSTATEMIB.EntStateTable.EntStateEntry', REFERENCE_LIST,
+            ''' ''',
+            False, 
+            [
+            _MetaInfoClassMember('entPhysicalIndex', ATTRIBUTE, 'int', 'ENTITY-MIB:PhysicalIndex',
+                None, None,
+                [('1', '2147483647')], [],
+                '''                ''',
+                'entphysicalindex',
+                'Cisco-IOS-XR-sysadmin-entity-state-mib', True, is_config=False),
+            _MetaInfoClassMember('entStateLastChanged', ATTRIBUTE, 'str', 'yang:date-and-time',
+                None, None,
+                [], [b'\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(Z|[\\+\\-]\\d{2}:\\d{2})'],
+                '''                ''',
+                'entstatelastchanged',
+                'Cisco-IOS-XR-sysadmin-entity-state-mib', False, is_config=False),
+            _MetaInfoClassMember('entStateAdmin', REFERENCE_ENUM_CLASS, 'EntityAdminState', 'ENTITY-STATE-TC-MIB:EntityAdminState',
+                'ydk.models.cisco_ios_xr.Cisco_IOS_XR_sysadmin_entity_state_tc_mib', 'EntityAdminState',
+                [], [],
+                '''                ''',
+                'entstateadmin',
+                'Cisco-IOS-XR-sysadmin-entity-state-mib', False, is_config=False),
+            _MetaInfoClassMember('entStateOper', REFERENCE_ENUM_CLASS, 'EntityOperState', 'ENTITY-STATE-TC-MIB:EntityOperState',
+                'ydk.models.cisco_ios_xr.Cisco_IOS_XR_sysadmin_entity_state_tc_mib', 'EntityOperState',
+                [], [],
+                '''                ''',
+                'entstateoper',
+                'Cisco-IOS-XR-sysadmin-entity-state-mib', False, is_config=False),
+            _MetaInfoClassMember('entStateUsage', REFERENCE_ENUM_CLASS, 'EntityUsageState', 'ENTITY-STATE-TC-MIB:EntityUsageState',
+                'ydk.models.cisco_ios_xr.Cisco_IOS_XR_sysadmin_entity_state_tc_mib', 'EntityUsageState',
+                [], [],
+                '''                ''',
+                'entstateusage',
+                'Cisco-IOS-XR-sysadmin-entity-state-mib', False, is_config=False),
+            _MetaInfoClassMember('entStateAlarm', REFERENCE_BITS, 'EntityAlarmStatus', 'ENTITY-STATE-TC-MIB:EntityAlarmStatus',
+                'ydk.models.cisco_ios_xr.Cisco_IOS_XR_sysadmin_entity_state_tc_mib', 'EntityAlarmStatus',
+                [], [],
+                '''                ''',
+                'entstatealarm',
+                'Cisco-IOS-XR-sysadmin-entity-state-mib', False, is_config=False),
+            _MetaInfoClassMember('entStateStandby', REFERENCE_ENUM_CLASS, 'EntityStandbyStatus', 'ENTITY-STATE-TC-MIB:EntityStandbyStatus',
+                'ydk.models.cisco_ios_xr.Cisco_IOS_XR_sysadmin_entity_state_tc_mib', 'EntityStandbyStatus',
+                [], [],
+                '''                ''',
+                'entstatestandby',
+                'Cisco-IOS-XR-sysadmin-entity-state-mib', False, is_config=False),
+            ],
+            'Cisco-IOS-XR-sysadmin-entity-state-mib',
+            'entStateEntry',
+            _yang_ns.NAMESPACE_LOOKUP['Cisco-IOS-XR-sysadmin-entity-state-mib'],
+            'ydk.models.cisco_ios_xr.Cisco_IOS_XR_sysadmin_entity_state_mib',
+            is_config=False,
+        ),
+    },
+    'ENTITYSTATEMIB.EntStateTable' : {
+        'meta_info' : _MetaInfoClass('ENTITYSTATEMIB.EntStateTable', REFERENCE_CLASS,
+            ''' ''',
+            False, 
+            [
+            _MetaInfoClassMember('entStateEntry', REFERENCE_LIST, 'EntStateEntry', '',
+                'ydk.models.cisco_ios_xr.Cisco_IOS_XR_sysadmin_entity_state_mib', 'ENTITYSTATEMIB.EntStateTable.EntStateEntry',
+                [], [],
+                '''                ''',
+                'entstateentry',
+                'Cisco-IOS-XR-sysadmin-entity-state-mib', False, is_config=False),
+            ],
+            'Cisco-IOS-XR-sysadmin-entity-state-mib',
+            'entStateTable',
+            _yang_ns.NAMESPACE_LOOKUP['Cisco-IOS-XR-sysadmin-entity-state-mib'],
+            'ydk.models.cisco_ios_xr.Cisco_IOS_XR_sysadmin_entity_state_mib',
+            is_config=False,
+        ),
+    },
+    'ENTITYSTATEMIB' : {
+        'meta_info' : _MetaInfoClass('ENTITYSTATEMIB', REFERENCE_CLASS,
+            ''' ''',
+            False, 
+            [
+            _MetaInfoClassMember('entStateTable', REFERENCE_CLASS, 'EntStateTable', '',
+                'ydk.models.cisco_ios_xr.Cisco_IOS_XR_sysadmin_entity_state_mib', 'ENTITYSTATEMIB.EntStateTable',
+                [], [],
+                '''                ''',
+                'entstatetable',
+                'Cisco-IOS-XR-sysadmin-entity-state-mib', False, is_config=False),
+            ],
+            'Cisco-IOS-XR-sysadmin-entity-state-mib',
+            'ENTITY-STATE-MIB',
+            _yang_ns.NAMESPACE_LOOKUP['Cisco-IOS-XR-sysadmin-entity-state-mib'],
+            'ydk.models.cisco_ios_xr.Cisco_IOS_XR_sysadmin_entity_state_mib',
+        ),
+    },
+}
+_meta_table['ENTITYSTATEMIB.EntStateTable.EntStateEntry']['meta_info'].parent =_meta_table['ENTITYSTATEMIB.EntStateTable']['meta_info']
+_meta_table['ENTITYSTATEMIB.EntStateTable']['meta_info'].parent =_meta_table['ENTITYSTATEMIB']['meta_info']

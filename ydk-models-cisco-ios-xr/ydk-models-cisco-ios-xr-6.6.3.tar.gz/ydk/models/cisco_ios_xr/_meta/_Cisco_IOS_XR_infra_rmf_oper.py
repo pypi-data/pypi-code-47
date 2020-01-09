@@ -1,0 +1,327 @@
+
+'''
+This is auto-generated file,
+which includes metadata for module Cisco_IOS_XR_infra_rmf_oper
+'''
+
+from ydk._core._dm_meta_info import _MetaInfoClassMember, _MetaInfoClass, _MetaInfoEnum
+from ydk._core._dm_meta_info import ATTRIBUTE, REFERENCE_LIST, REFERENCE_LEAFLIST, REFERENCE_BITS, REFERENCE_UNION
+from ydk._core._dm_meta_info import REFERENCE_CLASS, REFERENCE_IDENTITY_CLASS, REFERENCE_ENUM_CLASS, ANYXML_CLASS
+from ydk._core._importer import _yang_ns
+
+_meta_table = {
+    'Redundancy.Nodes.Node.Redundancy_.Groupinfo' : {
+        'meta_info' : _MetaInfoClass('Redundancy.Nodes.Node.Redundancy_.Groupinfo', REFERENCE_LIST,
+            '''groupinfo''',
+            False, 
+            [
+            _MetaInfoClassMember('active', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                Active
+                ''',
+                'active',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('standby', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                Standby
+                ''',
+                'standby',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('ha-state', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                HAState
+                ''',
+                'ha_state',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('nsr-state', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                NSRState
+                ''',
+                'nsr_state',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            ],
+            'Cisco-IOS-XR-infra-rmf-oper',
+            'groupinfo',
+            _yang_ns.NAMESPACE_LOOKUP['Cisco-IOS-XR-infra-rmf-oper'],
+            'ydk.models.cisco_ios_xr.Cisco_IOS_XR_infra_rmf_oper',
+            is_config=False,
+        ),
+    },
+    'Redundancy.Nodes.Node.Redundancy_' : {
+        'meta_info' : _MetaInfoClass('Redundancy.Nodes.Node.Redundancy_', REFERENCE_CLASS,
+            '''Row information''',
+            False, 
+            [
+            _MetaInfoClassMember('active', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                Active node name R/S/I
+                ''',
+                'active',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('standby', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                Standby node name R/S/I
+                ''',
+                'standby',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('ha-state', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                High Availability state Ready/Not Ready
+                ''',
+                'ha_state',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('nsr-state', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                NSR state Configured/Not Configured
+                ''',
+                'nsr_state',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('groupinfo', REFERENCE_LIST, 'Groupinfo', '',
+                'ydk.models.cisco_ios_xr.Cisco_IOS_XR_infra_rmf_oper', 'Redundancy.Nodes.Node.Redundancy_.Groupinfo',
+                [], [],
+                '''                groupinfo
+                ''',
+                'groupinfo',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            ],
+            'Cisco-IOS-XR-infra-rmf-oper',
+            'redundancy',
+            _yang_ns.NAMESPACE_LOOKUP['Cisco-IOS-XR-infra-rmf-oper'],
+            'ydk.models.cisco_ios_xr.Cisco_IOS_XR_infra_rmf_oper',
+            is_config=False,
+        ),
+    },
+    'Redundancy.Nodes.Node' : {
+        'meta_info' : _MetaInfoClass('Redundancy.Nodes.Node', REFERENCE_LIST,
+            '''Redundancy Node Information''',
+            False, 
+            [
+            _MetaInfoClassMember('node-id', ATTRIBUTE, 'str', 'xr:Node-id',
+                None, None,
+                [], [b'([a-zA-Z0-9_]*\\d+/){1,2}([a-zA-Z0-9_]*\\d+)'],
+                '''                Node Location
+                ''',
+                'node_id',
+                'Cisco-IOS-XR-infra-rmf-oper', True, is_config=False),
+            _MetaInfoClassMember('redundancy', REFERENCE_CLASS, 'Redundancy_', '',
+                'ydk.models.cisco_ios_xr.Cisco_IOS_XR_infra_rmf_oper', 'Redundancy.Nodes.Node.Redundancy_',
+                [], [],
+                '''                Row information
+                ''',
+                'redundancy',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('log', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                Reload and boot logs
+                ''',
+                'log',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('active-reboot-reason', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                Active node reload
+                ''',
+                'active_reboot_reason',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('standby-reboot-reason', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                Standby node reload
+                ''',
+                'standby_reboot_reason',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('err-log', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                Error Log
+                ''',
+                'err_log',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            ],
+            'Cisco-IOS-XR-infra-rmf-oper',
+            'node',
+            _yang_ns.NAMESPACE_LOOKUP['Cisco-IOS-XR-infra-rmf-oper'],
+            'ydk.models.cisco_ios_xr.Cisco_IOS_XR_infra_rmf_oper',
+            is_config=False,
+        ),
+    },
+    'Redundancy.Nodes' : {
+        'meta_info' : _MetaInfoClass('Redundancy.Nodes', REFERENCE_CLASS,
+            '''Location show information''',
+            False, 
+            [
+            _MetaInfoClassMember('node', REFERENCE_LIST, 'Node', '',
+                'ydk.models.cisco_ios_xr.Cisco_IOS_XR_infra_rmf_oper', 'Redundancy.Nodes.Node',
+                [], [],
+                '''                Redundancy Node Information
+                ''',
+                'node',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            ],
+            'Cisco-IOS-XR-infra-rmf-oper',
+            'nodes',
+            _yang_ns.NAMESPACE_LOOKUP['Cisco-IOS-XR-infra-rmf-oper'],
+            'ydk.models.cisco_ios_xr.Cisco_IOS_XR_infra_rmf_oper',
+            is_config=False,
+        ),
+    },
+    'Redundancy.Summary.RedPair.Groupinfo' : {
+        'meta_info' : _MetaInfoClass('Redundancy.Summary.RedPair.Groupinfo', REFERENCE_LIST,
+            '''groupinfo''',
+            False, 
+            [
+            _MetaInfoClassMember('active', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                Active
+                ''',
+                'active',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('standby', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                Standby
+                ''',
+                'standby',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('ha-state', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                HAState
+                ''',
+                'ha_state',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('nsr-state', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                NSRState
+                ''',
+                'nsr_state',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            ],
+            'Cisco-IOS-XR-infra-rmf-oper',
+            'groupinfo',
+            _yang_ns.NAMESPACE_LOOKUP['Cisco-IOS-XR-infra-rmf-oper'],
+            'ydk.models.cisco_ios_xr.Cisco_IOS_XR_infra_rmf_oper',
+            is_config=False,
+        ),
+    },
+    'Redundancy.Summary.RedPair' : {
+        'meta_info' : _MetaInfoClass('Redundancy.Summary.RedPair', REFERENCE_LIST,
+            '''Redundancy Pair''',
+            False, 
+            [
+            _MetaInfoClassMember('active', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                Active node name R/S/I
+                ''',
+                'active',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('standby', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                Standby node name R/S/I
+                ''',
+                'standby',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('ha-state', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                High Availability state Ready/Not Ready
+                ''',
+                'ha_state',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('nsr-state', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                NSR state Configured/Not Configured
+                ''',
+                'nsr_state',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('groupinfo', REFERENCE_LIST, 'Groupinfo', '',
+                'ydk.models.cisco_ios_xr.Cisco_IOS_XR_infra_rmf_oper', 'Redundancy.Summary.RedPair.Groupinfo',
+                [], [],
+                '''                groupinfo
+                ''',
+                'groupinfo',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            ],
+            'Cisco-IOS-XR-infra-rmf-oper',
+            'red-pair',
+            _yang_ns.NAMESPACE_LOOKUP['Cisco-IOS-XR-infra-rmf-oper'],
+            'ydk.models.cisco_ios_xr.Cisco_IOS_XR_infra_rmf_oper',
+            is_config=False,
+        ),
+    },
+    'Redundancy.Summary' : {
+        'meta_info' : _MetaInfoClass('Redundancy.Summary', REFERENCE_CLASS,
+            '''Redundancy Summary of Nodes''',
+            False, 
+            [
+            _MetaInfoClassMember('err-log', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                Error Log
+                ''',
+                'err_log',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('red-pair', REFERENCE_LIST, 'RedPair', '',
+                'ydk.models.cisco_ios_xr.Cisco_IOS_XR_infra_rmf_oper', 'Redundancy.Summary.RedPair',
+                [], [],
+                '''                Redundancy Pair
+                ''',
+                'red_pair',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            ],
+            'Cisco-IOS-XR-infra-rmf-oper',
+            'summary',
+            _yang_ns.NAMESPACE_LOOKUP['Cisco-IOS-XR-infra-rmf-oper'],
+            'ydk.models.cisco_ios_xr.Cisco_IOS_XR_infra_rmf_oper',
+            is_config=False,
+        ),
+    },
+    'Redundancy' : {
+        'meta_info' : _MetaInfoClass('Redundancy', REFERENCE_CLASS,
+            '''Redundancy show information''',
+            False, 
+            [
+            _MetaInfoClassMember('nodes', REFERENCE_CLASS, 'Nodes', '',
+                'ydk.models.cisco_ios_xr.Cisco_IOS_XR_infra_rmf_oper', 'Redundancy.Nodes',
+                [], [],
+                '''                Location show information
+                ''',
+                'nodes',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            _MetaInfoClassMember('summary', REFERENCE_CLASS, 'Summary', '',
+                'ydk.models.cisco_ios_xr.Cisco_IOS_XR_infra_rmf_oper', 'Redundancy.Summary',
+                [], [],
+                '''                Redundancy Summary of Nodes
+                ''',
+                'summary',
+                'Cisco-IOS-XR-infra-rmf-oper', False, is_config=False),
+            ],
+            'Cisco-IOS-XR-infra-rmf-oper',
+            'redundancy',
+            _yang_ns.NAMESPACE_LOOKUP['Cisco-IOS-XR-infra-rmf-oper'],
+            'ydk.models.cisco_ios_xr.Cisco_IOS_XR_infra_rmf_oper',
+            is_config=False,
+        ),
+    },
+}
+_meta_table['Redundancy.Nodes.Node.Redundancy_.Groupinfo']['meta_info'].parent =_meta_table['Redundancy.Nodes.Node.Redundancy_']['meta_info']
+_meta_table['Redundancy.Nodes.Node.Redundancy_']['meta_info'].parent =_meta_table['Redundancy.Nodes.Node']['meta_info']
+_meta_table['Redundancy.Nodes.Node']['meta_info'].parent =_meta_table['Redundancy.Nodes']['meta_info']
+_meta_table['Redundancy.Summary.RedPair.Groupinfo']['meta_info'].parent =_meta_table['Redundancy.Summary.RedPair']['meta_info']
+_meta_table['Redundancy.Summary.RedPair']['meta_info'].parent =_meta_table['Redundancy.Summary']['meta_info']
+_meta_table['Redundancy.Nodes']['meta_info'].parent =_meta_table['Redundancy']['meta_info']
+_meta_table['Redundancy.Summary']['meta_info'].parent =_meta_table['Redundancy']['meta_info']

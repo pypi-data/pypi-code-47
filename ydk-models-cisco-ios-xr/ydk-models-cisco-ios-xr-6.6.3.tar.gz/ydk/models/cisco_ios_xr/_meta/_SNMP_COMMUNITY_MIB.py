@@ -1,0 +1,105 @@
+
+'''
+This is auto-generated file,
+which includes metadata for module SNMP_COMMUNITY_MIB
+'''
+
+from ydk._core._dm_meta_info import _MetaInfoClassMember, _MetaInfoClass, _MetaInfoEnum
+from ydk._core._dm_meta_info import ATTRIBUTE, REFERENCE_LIST, REFERENCE_LEAFLIST, REFERENCE_BITS, REFERENCE_UNION
+from ydk._core._dm_meta_info import REFERENCE_CLASS, REFERENCE_IDENTITY_CLASS, REFERENCE_ENUM_CLASS, ANYXML_CLASS
+from ydk._core._importer import _yang_ns
+
+_meta_table = {
+    'SNMPCOMMUNITYMIB.SnmpCommunityTable.SnmpCommunityEntry' : {
+        'meta_info' : _MetaInfoClass('SNMPCOMMUNITYMIB.SnmpCommunityTable.SnmpCommunityEntry', REFERENCE_LIST,
+            ''' ''',
+            False, 
+            [
+            _MetaInfoClassMember('snmpCommunityIndex', ATTRIBUTE, 'str', 'snmpCommunityIndexType',
+                None, None,
+                [(1, 32)], [],
+                '''                ''',
+                'snmpcommunityindex',
+                'SNMP-COMMUNITY-MIB', True),
+            _MetaInfoClassMember('snmpCommunityName', ATTRIBUTE, 'str', 'snmpCommunityNameType',
+                None, None,
+                [], [],
+                '''                ''',
+                'snmpcommunityname',
+                'SNMP-COMMUNITY-MIB', False, is_mandatory=True),
+            _MetaInfoClassMember('snmpCommunitySecurityName', ATTRIBUTE, 'str', 'snmpCommunitySecurityNameType',
+                None, None,
+                [(1, 32)], [],
+                '''                ''',
+                'snmpcommunitysecurityname',
+                'SNMP-COMMUNITY-MIB', False, is_mandatory=True),
+            _MetaInfoClassMember('snmpCommunityContextEngineID', ATTRIBUTE, 'str', 'SNMP_FRAMEWORK_MIB:SnmpEngineID',
+                None, None,
+                [], [b'(([0-9a-fA-F]){2}(:([0-9a-fA-F]){2})*)?'],
+                '''                ''',
+                'snmpcommunitycontextengineid',
+                'SNMP-COMMUNITY-MIB', False, is_mandatory=True),
+            _MetaInfoClassMember('snmpCommunityContextName', ATTRIBUTE, 'str', 'snmpCommunityContextNameType',
+                None, None,
+                [('0', 32)], [],
+                '''                ''',
+                'snmpcommunitycontextname',
+                'SNMP-COMMUNITY-MIB', False, default_value="''"),
+            _MetaInfoClassMember('snmpCommunityTransportTag', ATTRIBUTE, 'str', 'SNMP_TARGET_MIB:SnmpTagValue',
+                None, None,
+                [('0', 255)], [],
+                '''                ''',
+                'snmpcommunitytransporttag',
+                'SNMP-COMMUNITY-MIB', False, default_value="''"),
+            _MetaInfoClassMember('snmpCommunityStorageType', REFERENCE_ENUM_CLASS, 'StorageType', 'SNMPv2_TC:StorageType',
+                'ydk.models.cisco_ios_xr.SNMPv2_TC', 'StorageType',
+                [], [],
+                '''                ''',
+                'snmpcommunitystoragetype',
+                'SNMP-COMMUNITY-MIB', False, default_value='SNMPv2_TC.StorageType.permanent'),
+            ],
+            'SNMP-COMMUNITY-MIB',
+            'snmpCommunityEntry',
+            _yang_ns.NAMESPACE_LOOKUP['SNMP-COMMUNITY-MIB'],
+            'ydk.models.cisco_ios_xr.SNMP_COMMUNITY_MIB',
+        ),
+    },
+    'SNMPCOMMUNITYMIB.SnmpCommunityTable' : {
+        'meta_info' : _MetaInfoClass('SNMPCOMMUNITYMIB.SnmpCommunityTable', REFERENCE_CLASS,
+            ''' ''',
+            False, 
+            [
+            _MetaInfoClassMember('snmpCommunityEntry', REFERENCE_LIST, 'SnmpCommunityEntry', '',
+                'ydk.models.cisco_ios_xr.SNMP_COMMUNITY_MIB', 'SNMPCOMMUNITYMIB.SnmpCommunityTable.SnmpCommunityEntry',
+                [], [],
+                '''                ''',
+                'snmpcommunityentry',
+                'SNMP-COMMUNITY-MIB', False),
+            ],
+            'SNMP-COMMUNITY-MIB',
+            'snmpCommunityTable',
+            _yang_ns.NAMESPACE_LOOKUP['SNMP-COMMUNITY-MIB'],
+            'ydk.models.cisco_ios_xr.SNMP_COMMUNITY_MIB',
+        ),
+    },
+    'SNMPCOMMUNITYMIB' : {
+        'meta_info' : _MetaInfoClass('SNMPCOMMUNITYMIB', REFERENCE_CLASS,
+            ''' ''',
+            False, 
+            [
+            _MetaInfoClassMember('snmpCommunityTable', REFERENCE_CLASS, 'SnmpCommunityTable', '',
+                'ydk.models.cisco_ios_xr.SNMP_COMMUNITY_MIB', 'SNMPCOMMUNITYMIB.SnmpCommunityTable',
+                [], [],
+                '''                ''',
+                'snmpcommunitytable',
+                'SNMP-COMMUNITY-MIB', False),
+            ],
+            'SNMP-COMMUNITY-MIB',
+            'SNMP-COMMUNITY-MIB',
+            _yang_ns.NAMESPACE_LOOKUP['SNMP-COMMUNITY-MIB'],
+            'ydk.models.cisco_ios_xr.SNMP_COMMUNITY_MIB',
+        ),
+    },
+}
+_meta_table['SNMPCOMMUNITYMIB.SnmpCommunityTable.SnmpCommunityEntry']['meta_info'].parent =_meta_table['SNMPCOMMUNITYMIB.SnmpCommunityTable']['meta_info']
+_meta_table['SNMPCOMMUNITYMIB.SnmpCommunityTable']['meta_info'].parent =_meta_table['SNMPCOMMUNITYMIB']['meta_info']

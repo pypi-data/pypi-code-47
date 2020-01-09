@@ -1,0 +1,32 @@
+
+'''
+This is auto-generated file,
+which includes metadata for module Cisco_IOS_XR_shellutil_cfg
+'''
+
+from ydk._core._dm_meta_info import _MetaInfoClassMember, _MetaInfoClass, _MetaInfoEnum
+from ydk._core._dm_meta_info import ATTRIBUTE, REFERENCE_LIST, REFERENCE_LEAFLIST, REFERENCE_BITS, REFERENCE_UNION
+from ydk._core._dm_meta_info import REFERENCE_CLASS, REFERENCE_IDENTITY_CLASS, REFERENCE_ENUM_CLASS, ANYXML_CLASS
+from ydk._core._importer import _yang_ns
+
+_meta_table = {
+    'HostNames' : {
+        'meta_info' : _MetaInfoClass('HostNames', REFERENCE_CLASS,
+            '''Container Schema for hostname configuration''',
+            False, 
+            [
+            _MetaInfoClassMember('host-name', ATTRIBUTE, 'str', 'string',
+                None, None,
+                [], [],
+                '''                Configure system's hostname
+                ''',
+                'host_name',
+                'Cisco-IOS-XR-shellutil-cfg', False),
+            ],
+            'Cisco-IOS-XR-shellutil-cfg',
+            'host-names',
+            _yang_ns.NAMESPACE_LOOKUP['Cisco-IOS-XR-shellutil-cfg'],
+            'ydk.models.cisco_ios_xr.Cisco_IOS_XR_shellutil_cfg',
+        ),
+    },
+}
