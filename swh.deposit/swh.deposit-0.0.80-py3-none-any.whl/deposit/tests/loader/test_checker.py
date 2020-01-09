@@ -1,0 +1,45 @@
+# Copyright (C) 2017-2019  The Software Heritage developers
+# See the AUTHORS file at the top-level directory of this distribution
+# License: GNU General Public License version 3, or any later version
+# See top-level LICENSE file for more information
+
+from django.urls import reverse
+from unittest.mock import patch
+
+from swh.deposit.config import PRIVATE_CHECK_DEPOSIT
+
+
+def test_check_deposit_ready(
+        swh_config, requests_mock_datadir, deposit_checker):
+    """Check on a valid 'deposited' deposit should result in 'verified'
+
+    """
+    deposit_check_url = reverse(PRIVATE_CHECK_DEPOSIT, args=['test', 1])
+    actual_result = deposit_checker.check(deposit_check_url=deposit_check_url)
+    assert actual_result == {'status': 'eventful'}
+
+
+def test_check_deposit_rejected(
+        swh_config, requests_mock_datadir, deposit_checker):
+    """Check on invalid 'deposited' deposit should result in 'rejected'
+
+    """
+    deposit_check_url = reverse(PRIVATE_CHECK_DEPOSIT, args=[
+        'test', 2
+    ])
+    actual_result = deposit_checker.check(deposit_check_url=deposit_check_url)
+    assert actual_result == {'status': 'failed'}
+
+
+@patch('swh.deposit.client.requests.get')
+def test_check_deposit_rejected_exception(
+        mock_requests, swh_config, deposit_checker):
+    """Check on invalid 'deposited' deposit should result in 'rejected'
+
+    """
+    mock_requests.side_effect = ValueError('simulated problem when checking')
+    deposit_check_url = reverse(PRIVATE_CHECK_DEPOSIT, args=[
+        'test', 3
+    ])
+    actual_result = deposit_checker.check(deposit_check_url=deposit_check_url)
+    assert actual_result == {'status': 'failed'}
