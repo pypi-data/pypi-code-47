@@ -1,0 +1,7 @@
+x = input('x1,y1=')
+x1,y1 = eval(x)
+x = input('x2,y2=')
+x2,y2 = eval(x)
+d = ((x2-x1)**2+(y2-y1)**2)
+d =d**(1.0/2)
+print('d=',d)
