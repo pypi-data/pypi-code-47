@@ -1,0 +1,9 @@
+messageQueue = []  # message queue for normal messages
+HighPriorityQueue = []  # message queue for important messages
+synclist = []  # files stored on server
+filelist = []
+LoggedIn = False
+AnswerReceived = False
+ConnectionEstabilished = False
+username = "alex"
+password = "honest"
