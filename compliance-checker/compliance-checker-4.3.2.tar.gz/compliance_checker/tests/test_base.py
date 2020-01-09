@@ -1,0 +1,129 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+'''Tests for base compliance checker class'''
+
+from __future__ import unicode_literals
+from unittest import TestCase
+from netCDF4 import Dataset
+from compliance_checker import base
+import os
+
+
+class TestBase(TestCase):
+    '''
+    Tests functionality of the base compliance checker class
+    '''
+
+    def setUp(self):
+        self.acdd = base.BaseCheck()
+        self.ds = Dataset(filename=os.devnull, mode='w', diskless=True)
+
+    def tearDown(self):
+        self.ds.close()
+
+    def test_attr_presence(self):
+        # attribute not present, should fail
+        priority = base.BaseCheck.MEDIUM
+        rv1, rv2, rv3, rv4 = [], [], [], []
+        attr = ('test', None)
+        base.attr_check(attr, self.ds, priority, rv1)
+        assert rv1[0] == base.Result(priority, False, "test",
+                                     ['test not present'])
+        # test with empty string
+        self.ds.test = ''
+        base.attr_check(attr, self.ds, priority, rv2)
+        assert rv2[0] == base.Result(priority, False, "test",
+                                     ["test is empty or completely whitespace"])
+        # test with whitespace in the form of a space and a tab
+        self.ds.test = ' 	'
+        base.attr_check(attr, self.ds, priority, rv3)
+        assert rv3[0] == base.Result(priority, False, "test",
+                                     ["test is empty or completely whitespace"])
+        # test with actual string contents
+        self.ds.test = 'abc 123'
+        base.attr_check(attr, self.ds, priority, rv4)
+        assert rv4[0] == base.Result(priority, True, "test", [])
+
+    def test_attr_in_valid_choices(self):
+        """Tests attribute membership in a set"""
+        rv1, rv2, rv3 = [], [], []
+        priority = base.BaseCheck.MEDIUM
+        valid_choices = ['a', 'b', 'c']
+        attr = ('test', valid_choices)
+        base.attr_check(attr, self.ds, priority, rv1)
+        assert rv1[0] == base.Result(priority, (0, 2), "test", ["test not present"])
+        self.ds.test = ''
+        base.attr_check(attr, self.ds, priority, rv2)
+        assert rv2[0] == base.Result(priority, (1, 2), "test", ["test present, but not in expected value list (%s)" % valid_choices])
+        self.ds.test = 'a'
+        base.attr_check(attr, self.ds, priority, rv3)
+        assert rv3[0] == base.Result(priority, (2, 2), "test", [])
+
+    def test_attr_fn(self):
+        """Test attribute against a checker function"""
+
+        # simple test.  In an actual program, this use case would be covered
+        rv1, rv2, rv3 = [], [], []
+        priority = base.BaseCheck.MEDIUM
+
+        def verify_dummy(ds):
+            """Sample function that will be called when passed into attr_check"""
+            try:
+                if ds.dummy + 'y' == 'dummyy':
+                    return base.ratable_result(True, 'dummy', [])
+                else:
+                    return base.ratable_result(False, 'dummy', [ds.dummy+'y'])
+            except AttributeError:
+                return base.ratable_result(False, 'dummy', [])
+
+        attr = ('dummy', verify_dummy)
+        base.attr_check(attr, self.ds, priority, rv1)
+        assert rv1[0] == base.Result(priority, False, 'dummy', [])
+        self.ds.dummy = 'doomy'
+        base.attr_check(attr, self.ds, priority, rv2)
+        assert rv2[0] == base.Result(priority, False, 'dummy', ['doomyy'])
+        self.ds.dummy = 'dummy'
+        base.attr_check(attr, self.ds, priority, rv3)
+        assert rv3[0] == base.Result(priority, True, 'dummy', [])
+
+    def test_get_test_ctx(self):
+        # acdd refers to a BaseCheck instance here -- perhaps the variable name
+        # should reflect that?
+        ctx = self.acdd.get_test_ctx(base.BaseCheck.HIGH, 'Dummy Name')
+        ctx.assert_true(1 + 1 == 2, 'One plus one equals two')
+        self.assertEqual(ctx.out_of, 1)
+        self.assertEqual(ctx.messages, [])
+
+        # ctx2 should be receive the same test context
+        ctx2 = self.acdd.get_test_ctx(base.BaseCheck.HIGH, 'Dummy Name')
+        self.assertIs(ctx, ctx2)
+        # will fail, obviously
+        ctx2.assert_true(1 + 1 == 3, 'One plus one equals three')
+        self.assertEqual(ctx.out_of, 2)
+        self.assertEqual(ctx2.out_of, 2)
+        self.assertEqual(ctx2.messages, ['One plus one equals three'])
+
+        ctx2 = self.acdd.get_test_ctx(base.BaseCheck.HIGH, 'Test Name',
+                                      'test_var_name')
+        ctx3 = self.acdd.get_test_ctx(base.BaseCheck.HIGH, 'Test Name',
+                                      'test_var_name')
+        # check that variable cache is working
+        self.assertIs(ctx3, (self.acdd._defined_results['Test Name']
+                                                       ['test_var_name']
+                                                       [base.BaseCheck.HIGH]
+                                                     ))
+
+
+class TestGenericFile(TestCase):
+    '''
+    Tests the GenericFile class.
+    '''
+
+    def test_create_GenericFile_success(self):
+        path = '/tmp/test.txt'
+        gf = base.GenericFile(path)
+        self.assertEqual(gf.filepath(), path)
+
+    def test_create_GenericFile_failure(self):
+        gf = base.GenericFile("will not match")
+        self.assertNotEqual(gf.filepath(), "do NOT MATCH")
