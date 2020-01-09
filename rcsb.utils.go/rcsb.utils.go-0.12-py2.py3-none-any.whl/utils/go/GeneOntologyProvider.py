@@ -1,0 +1,160 @@
+##
+# -*- coding: utf-8 -*-
+#
+# File:    GeneOntologyProvider.py
+# Author:  J. Westbrook
+# Date:    10-Dec-2019
+# Version: 0.001
+#
+# Update:
+#
+#
+##
+"""
+Various utilities for extracting data from the Gene Ontology OBO files
+and returning lineage details.
+"""
+
+import logging
+import os
+
+import networkx
+import obonet
+
+from rcsb.utils.io.FileUtil import FileUtil
+
+logger = logging.getLogger(__name__)
+
+
+class GeneOntologyProvider(object):
+    """Various utilities for extracting data from the Gene Ontology OBO files
+        and returning lineage details.
+    """
+
+    def __init__(self, **kwargs):
+        # Alternate: http://purl.obolibrary.org/obo/go.obo
+        # urlTarget = kwargs.get("urlTarget", "http://purl.obolibrary.org/obo/go/go-basic.obo")
+        urlTarget = kwargs.get("urlTarget", "http://purl.obolibrary.org/obo/go.obo")
+        goDirPath = kwargs.get("goDirPath", ".")
+        useCache = kwargs.get("useCache", True)
+        self.__goGraph = self.__reload(urlTarget, goDirPath, useCache=useCache)
+
+    def testCache(self):
+        if self.__goGraph:
+            logger.info("Reading %d nodes and %d edges", len(self.__goGraph), self.__goGraph.number_of_edges())
+            if len(self.__goGraph) > 44000:
+                return True
+        return False
+
+    def exists(self, goId):
+        try:
+            return goId in self.__goGraph
+        except Exception:
+            return False
+
+    def getNode(self, goId):
+        try:
+            return self.__goGraph[goId]
+        except Exception:
+            pass
+        return None
+
+    def getRootNodes(self):
+        try:
+            rootL = [n for n, d in self.__goGraph.out_degree() if d == 0]
+            return rootL
+        except Exception:
+            pass
+        return None
+
+    def getName(self, goId):
+        try:
+            return self.__goGraph.nodes[goId]["name"]
+        except Exception as e:
+            logger.debug("Failing %r with %r", goId, str(e))
+        return None
+
+    def getAdjacentParents(self, goId):
+        rL = []
+        try:
+            for child, parent, key in self.__goGraph.out_edges(goId, keys=True):
+                logger.debug("%r %r - %r -> %r %r", child, self.getName(child), key, parent, self.getName(parent))
+                rL.append((child, parent, key))
+        except Exception:
+            pass
+        return rL
+
+    def getPredecessors(self, goId):
+        rL = []
+        try:
+            rL = [nd for nd in self.__goGraph.predecessors(goId)]
+        except Exception:
+            pass
+        return rL
+
+    def getSuccessors(self, goId):
+        rL = []
+        try:
+            rL = [nd for nd in self.__goGraph.successors(goId)]
+        except Exception:
+            pass
+        return rL
+
+    def getDescendants(self, goId):
+        linL = []
+        try:
+            for nd in networkx.descendants(self.__goGraph, goId):
+                logger.debug("%r %r --> %r %r", goId, self.getName(goId), nd, self.getName(nd))
+                linL.append((nd, self.getName(nd)))
+        except Exception as e:
+            logger.debug("Failing %s with %s", goId, str(e))
+        return linL
+
+    def getUniqueDescendants(self, goIdL):
+        linL = []
+        try:
+            ndS = set()
+            for goId in goIdL:
+                for nd in networkx.descendants(self.__goGraph, goId):
+                    ndS.add(nd)
+            #
+            for nd in sorted(ndS):
+                linL.append((nd, self.getName(nd)))
+        except Exception as e:
+            logger.debug("Failing %s with %s", goId, str(e))
+        return linL
+
+    def __reload(self, urlTarget, dirPath, useCache=True):
+        """ Reload input GO OBO ontology file and return a nx graph object.
+'
+        Returns:
+            dictionary[goId] = {'name_list': ... , 'id_list': ... 'depth_list': ... }
+        """
+        goGraph = None
+        #
+        # mU = MarshalUtil()
+        fU = FileUtil()
+        fn = fU.getFileName(urlTarget)
+        oboFilePath = os.path.join(dirPath, fn)
+        fU.mkdir(dirPath)
+        #
+        if not useCache:
+            for fp in [oboFilePath]:
+                try:
+                    os.remove(fp)
+                except Exception:
+                    pass
+        #
+        if useCache and fU.exists(oboFilePath):
+            goGraph = obonet.read_obo(oboFilePath)
+        else:
+            logger.info("Fetching url %s to resource file %s", urlTarget, oboFilePath)
+            ok = fU.get(urlTarget, oboFilePath)
+            if ok:
+                goGraph = obonet.read_obo(oboFilePath)
+        if goGraph:
+            logger.info("Reading %d nodes and %d edges", len(goGraph), goGraph.number_of_edges())
+        else:
+            logger.info("Go graph construction failing")
+        #
+        return goGraph
