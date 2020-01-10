@@ -1,0 +1,1 @@
+from .InsightFace import InsightFace
