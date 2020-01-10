@@ -1,0 +1,40 @@
+from ophyd import Component as Cpt
+from ophyd.areadetector.cam import (SimDetectorCam)
+from ophyd.areadetector.detectors import DetectorBase
+from ophyd.areadetector.plugins import (AttributePlugin_V31, CircularBuffPlugin_V31, ColorConvPlugin_V31, FFTPlugin_V31, GatherPlugin, HDF5Plugin_V32, ImagePlugin_V31, JPEGPlugin_V31, NetCDFPlugin_V31, NexusPlugin_V31, OverlayPlugin_V31, ProcessPlugin_V31, PvaPlugin_V31, ROIPlugin_V31, ROIStatPlugin_V31, ScatterPlugin_V32, StatsPlugin_V32, TIFFPlugin_V31, TransformPlugin_V31)
+
+
+class Detector13sim1(DetectorBase, version=(2, 7, 0)):
+    attr1 = Cpt(AttributePlugin_V31, 'Attr1:')
+    cam = Cpt(SimDetectorCam, 'cam1:')
+    cam2 = Cpt(SimDetectorCam, 'cam2:')
+    cb1 = Cpt(CircularBuffPlugin_V31, 'CB1:')
+    cc1 = Cpt(ColorConvPlugin_V31, 'CC1:')
+    cc2 = Cpt(ColorConvPlugin_V31, 'CC2:')
+    fft1 = Cpt(FFTPlugin_V31, 'FFT1:')
+    gather1 = Cpt(GatherPlugin, 'Gather1:')
+    hdf1 = Cpt(HDF5Plugin_V32, 'HDF1:')
+    image1 = Cpt(ImagePlugin_V31, 'image1:')
+    image2 = Cpt(ImagePlugin_V31, 'image2:')
+    jpeg1 = Cpt(JPEGPlugin_V31, 'JPEG1:')
+    netcdf1 = Cpt(NetCDFPlugin_V31, 'netCDF1:')
+    nexus1 = Cpt(NexusPlugin_V31, 'Nexus1:')
+    over1 = Cpt(OverlayPlugin_V31, 'Over1:')
+    proc1 = Cpt(ProcessPlugin_V31, 'Proc1:')
+    pva1 = Cpt(PvaPlugin_V31, 'Pva1:')
+    roi1 = Cpt(ROIPlugin_V31, 'ROI1:')
+    roi2 = Cpt(ROIPlugin_V31, 'ROI2:')
+    roi3 = Cpt(ROIPlugin_V31, 'ROI3:')
+    roi4 = Cpt(ROIPlugin_V31, 'ROI4:')
+    roistat1 = Cpt(ROIStatPlugin_V31, 'ROIStat1:')
+    scatter1 = Cpt(ScatterPlugin_V32, 'Scatter1:')
+    stats1 = Cpt(StatsPlugin_V32, 'Stats1:')
+    stats2 = Cpt(StatsPlugin_V32, 'Stats2:')
+    stats3 = Cpt(StatsPlugin_V32, 'Stats3:')
+    stats4 = Cpt(StatsPlugin_V32, 'Stats4:')
+    stats5 = Cpt(StatsPlugin_V32, 'Stats5:')
+    tiff1 = Cpt(TIFFPlugin_V31, 'TIFF1:')
+    trans1 = Cpt(TransformPlugin_V31, 'Trans1:')
+
+
+det = Detector13sim1('13SIM1:', name="det")
