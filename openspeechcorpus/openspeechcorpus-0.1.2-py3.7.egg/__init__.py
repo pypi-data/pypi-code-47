@@ -1,0 +1,3 @@
+from .ops import execute_from_command_line as ops_execute_from_command_line
+from .recursive_convert import execute_from_command_line as recursive_convert_execute_from_command_line
+from .cmu_sphinx import execute_from_command_line as configure_sphinx_execute_from_command_line

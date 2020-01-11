@@ -1,0 +1,1 @@
+from .configure_sphinx_etc_files import execute_from_command_line
