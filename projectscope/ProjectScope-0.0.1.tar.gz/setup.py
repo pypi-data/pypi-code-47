@@ -1,0 +1,27 @@
+import setuptools
+
+with open("readme.md", "r") as fh:
+    long_description = fh.read()
+
+setuptools.setup(
+    name="ProjectScope",
+    version="0.0.1",
+    license='MIT',
+    author="Corey Bird",
+    author_email="birdcorey@gmail.com",
+    description="A small project management tool",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://bitbucket.org/CoreyBird/projectscope.git",
+    packages=setuptools.find_packages(),
+    install_requires=[
+          'wxPython',
+          'Panda3D',
+      ],
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    python_requires='>=3.7',
+)
