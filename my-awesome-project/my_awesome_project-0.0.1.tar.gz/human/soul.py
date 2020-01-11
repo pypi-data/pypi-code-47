@@ -1,0 +1,2 @@
+name = 'Soul'
+print(name)

@@ -1,0 +1,2 @@
+name = 'Mind'
+print(name)
