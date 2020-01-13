@@ -1,0 +1,1 @@
+from tax2peptide.version import __version__
