@@ -1,0 +1,2 @@
+class SakuraException(Exception):
+    pass
