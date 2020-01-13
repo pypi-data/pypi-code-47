@@ -1,0 +1,8 @@
+__title__ = 'freeproxies'
+__description__ = 'Free proxies for humans'
+__url__ = 'https://github.com/iamkamleshrangi/freeproxies'
+__version__ = '0.0.1'
+__author__ = 'Kamlesh Kumar Rangi'
+__author_email__ = 'iamkamleshrangi@gmail.com'
+__license__ = 'GPL v3'
+__copyright__ = 'Copyright 2020 Kamlesh Kumar Rangi'
