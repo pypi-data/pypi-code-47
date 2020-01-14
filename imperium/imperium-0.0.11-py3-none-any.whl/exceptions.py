@@ -1,0 +1,2 @@
+class UnsupportedFunctionException(Exception):
+    pass
