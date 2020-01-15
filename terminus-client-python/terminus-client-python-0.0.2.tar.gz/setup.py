@@ -1,0 +1,38 @@
+import setuptools
+
+requires = [
+   'requests'
+]
+
+test_requirements = [
+    'pytest>=3',
+    'pytest-cov',
+    'pytest-mock',
+    'pytest-xdist',
+]
+
+setuptools.setup(
+    name="terminus-client-python",
+    version="0.0.2",
+    author="TerminusDB group",
+    author_email="terminusdatabase@gmail.com",
+    description="Python client for Terminus DB",
+    long_description="Python terminus client for TerminusDB API and WOQLpy",
+    long_description_content_type="text/markdown",
+    package_data={'': ['LICENSE']},
+    url="https://github.com/terminusdb/terminus-client-python",
+    packages=setuptools.find_packages(exclude=['tests']),
+    include_package_data=True,
+    install_requires=requires,
+   
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "Operating System :: OS Independent",
+    ],
+    setup_requires=['pytest-runner'],
+    tests_require=test_requirements,
+    python_requires='>=3.6',
+)
+
+
