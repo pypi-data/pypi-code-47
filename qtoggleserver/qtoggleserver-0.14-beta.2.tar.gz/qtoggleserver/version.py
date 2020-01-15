@@ -1,0 +1,3 @@
+
+VERSION = '0.14-beta.2'
+VENDOR = 'qtoggle/qtoggleserver'
