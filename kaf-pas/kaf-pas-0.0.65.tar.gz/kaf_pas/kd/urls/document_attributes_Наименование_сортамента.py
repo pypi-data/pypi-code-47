@@ -1,0 +1,15 @@
+from django.urls import path
+
+from kaf_pas.kd.views import document_attributes_Наименование_сортамента
+
+urlpatterns = [
+
+    path('Document_attributes_Наименование_сортамента/Fetch/', document_attributes_Наименование_сортамента.Document_attributes_Наименование_сортамента_Fetch),
+    path('Document_attributes_Наименование_сортамента/Add', document_attributes_Наименование_сортамента.Document_attributes_Наименование_сортамента_Add),
+    path('Document_attributes_Наименование_сортамента/Update', document_attributes_Наименование_сортамента.Document_attributes_Наименование_сортамента_Update),
+    path('Document_attributes_Наименование_сортамента/Remove', document_attributes_Наименование_сортамента.Document_attributes_Наименование_сортамента_Remove),
+    path('Document_attributes_Наименование_сортамента/Lookup/', document_attributes_Наименование_сортамента.Document_attributes_Наименование_сортамента_Lookup),
+    path('Document_attributes_Наименование_сортамента/Info/', document_attributes_Наименование_сортамента.Document_attributes_Наименование_сортамента_Info),
+    path('Document_attributes_Наименование_сортамента/Copy', document_attributes_Наименование_сортамента.Document_attributes_Наименование_сортамента_Copy),
+
+]
