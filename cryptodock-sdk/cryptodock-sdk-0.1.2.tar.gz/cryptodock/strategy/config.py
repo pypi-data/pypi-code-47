@@ -1,0 +1,15 @@
+class State(object) :
+    LATENT = 'LATENT'
+    ACTIVE = 'ACTIVE'
+    RESOLVED = 'RESOLVED'
+
+class Msg(object) :
+    START = 'START'
+    POLL = 'POLL'
+    PAUSE = 'PAUSE'
+    RESTART = 'RESTART'
+    FINISH = 'FINISH'
+    RESOLVED = 'RESOLVED'
+
+def WEBSOCKET_URL(TRADING_SOCKET_HOST, TRADING_SOCKET_PORT) :
+    return 'ws://{}:{}'.format(TRADING_SOCKET_HOST, TRADING_SOCKET_PORT)
