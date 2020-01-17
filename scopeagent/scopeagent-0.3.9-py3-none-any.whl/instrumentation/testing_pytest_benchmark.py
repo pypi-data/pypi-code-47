@@ -1,0 +1,35 @@
+import logging
+
+import wrapt
+
+from scopeagent.tracer import tags
+from . import run_once
+
+logger = logging.getLogger(__name__)
+
+
+@run_once
+def patch(tracer):
+    def wrapper(wrapped, instance, args, kwargs):
+        result = wrapped(*args, **kwargs)
+        active_span = tracer.active_span
+        stats = instance.stats.stats
+        active_span.set_tag(tags.TEST_TYPE, tags.BENCHMARK_TYPE)
+        active_span.set_tag(tags.BENCHMARK_RUNS, stats.rounds)
+        active_span.set_tag(tags.BENCHMARK_DURATION_MEAN, stats.mean)
+        active_span.set_tag(tags.BENCHMARK_DURATION_MIN, stats.min)
+        active_span.set_tag(tags.BENCHMARK_DURATION_MAX, stats.max)
+        active_span.set_tag(tags.BENCHMARK_DURATION_STDDEV, stats.stddev)
+        active_span.set_tag(tags.BENCHMARK_DURATION_MEDIAN, stats.median)
+        active_span.set_tag(tags.BENCHMARK_DURATION_Q1, stats.q1)
+        active_span.set_tag(tags.BENCHMARK_DURATION_Q3, stats.q3)
+
+        return result
+
+    try:
+        logger.debug("patching module=pytest_benchmark.fixture.BenchmarkFixture name=_raw")
+        # Function being wrapped
+        # https://github.com/ionelmc/pytest-benchmark/blob/c91293b94e3b64a4fd7d89dd35e4d2b3ebc3d190/src/pytest_benchmark/fixture.py#L145
+        wrapt.wrap_function_wrapper('pytest_benchmark.fixture', 'BenchmarkFixture._raw', wrapper)
+    except ImportError:
+        logger.debug("module not found module=pytest_benchmark.fixture.BenchmarkFixture")
