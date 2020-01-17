@@ -1,0 +1,109 @@
+import logging
+
+from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
+from django.http import (
+    HttpResponse,
+    JsonResponse,
+    HttpResponseBadRequest,     # HTTP 400
+    HttpResponseNotAllowed,     # HTTP 405
+)
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic.base import View
+
+from mentions.exceptions import BadConfig, TargetDoesNotExist
+from mentions.tasks import process_incoming_webmention
+from mentions.util import get_model_for_url_path
+
+
+log = logging.getLogger(__name__)
+
+
+def _get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[-1].strip()
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
+def validate(validator, urls):
+    for url in urls:
+        try:
+            validator(url)
+        except ValidationError as e:
+            log.warning(f'URL \'{url}\' did not pass validation: {e}')
+            return False
+    return True
+
+
+# /webmention/
+class WebmentionView(View):
+    """Handle incoming webmentions."""
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        log.info('Receiving webmention...')
+        if request.method != 'POST':
+            return HttpResponseNotAllowed(
+                ['POST', ],
+                'Only POST requests are accepted')
+
+        http_post = request.POST
+        try:
+            client_ip = _get_client_ip(request)
+            source = http_post['source']
+            target = http_post['target']
+        except Exception as e:
+            log.warning(f'Unable to read webmention params "{http_post}": {e}')
+            return HttpResponse(status=400)
+
+        validator = URLValidator(schemes=['http', 'https'])
+
+        if validate(validator, [source, target]):
+            log.info(f'Validation passed for source: \'{source}\', target: \'{target}\'')
+        else:
+            return HttpResponseBadRequest()
+
+        process_incoming_webmention.delay(http_post, client_ip)
+        return HttpResponse(status=202)
+
+
+# /webmention/get
+class GetWebmentionsView(View):
+    """Return any webmentions associated with a given item."""
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.method != 'GET':
+            return HttpResponseNotAllowed(['GET', ])
+
+        http_get = request.GET
+        for_url = http_get.get('url')
+
+        if not for_url:
+            return HttpResponseBadRequest('Missing args')
+
+        try:
+            obj = get_model_for_url_path(for_url)
+        except TargetDoesNotExist as e:
+            log.info(e)
+            return JsonResponse({
+                'status': 0,
+                'message': 'Target object not found'
+            })
+        except BadConfig as e:
+            log.error(e)
+            return JsonResponse({
+                'status': 0,
+                'message': 'Config error'
+            })
+
+        log.info(f'retrieved object {obj}')
+        wm = obj.mentions
+        log.info(wm)
+        return JsonResponse({
+            'status': 1,
+            'mentions': obj.mentions_json(),
+        })
