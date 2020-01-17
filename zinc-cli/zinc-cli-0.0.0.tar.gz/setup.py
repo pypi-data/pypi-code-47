@@ -1,0 +1,127 @@
+# -*- coding: utf-8 -*-
+
+import os
+from shutil import rmtree
+
+import setuptools
+
+# ======================================================================================================================
+# Fill in this information for each package.
+# ======================================================================================================================
+
+# Edit these.
+AUTHOR = "Jakrin Juangbhanich"
+EMAIL = "juangbhanich.k@gmail.com"
+DESCRIPTION = "Package Description."
+REPO = "https://github.com/krinj"
+
+# Project Defaults.
+PACKAGE_SRC = "src"
+
+# ======================================================================================================================
+# Discover the core package.
+# ======================================================================================================================
+
+src_paths = os.listdir(PACKAGE_SRC)
+src_paths.remove("__pycache__")  # Make sure we don't include this by accident.
+
+if len(src_paths) != 1:
+    raise Exception(f"Failed to build: Source directory '{PACKAGE_SRC}' must contain exactly one Python package. "
+                    f"Instead, it contains {len(src_paths)}: {src_paths}")
+
+PACKAGE_NAME = src_paths[0]
+PACKAGE_PATH = os.path.join(PACKAGE_SRC, PACKAGE_NAME)
+
+print(f"Package Name Discovered: {PACKAGE_NAME}")
+
+# ======================================================================================================================
+# Automatic Package Setup Script.
+# ======================================================================================================================
+
+with open("version", "r") as f:
+    VERSION = f.readline()
+
+
+def find_packages_under(path):
+    """ Recursive list all of the packages under a specific package."""
+    all_packages = setuptools.find_packages()
+    packages = []
+    for package in all_packages:
+        package_split = package.split(".")
+        if package_split[0] == path:
+            packages.append(package)
+    return packages
+
+
+def copy_version_to_package(path):
+    """ Copy the single source of truth version number into the package as well. """
+    init_file = os.path.join(path, "__init__.py")
+    with open(init_file, "r") as original_file:
+        lines = original_file.readlines()
+
+    with open(init_file, "w") as new_file:
+        for line in lines:
+            if "__version__" not in line:
+                new_file.write(line)
+            else:
+                new_file.write("__version__ = \"{}\"\n".format(VERSION))
+
+
+copy_version_to_package(PACKAGE_PATH)
+
+with open("long_description.md", "r") as f:
+    long_description = f.read()
+
+setuptools.setup(
+    author=AUTHOR,
+    author_email=EMAIL,
+    name=PACKAGE_NAME,
+    description=DESCRIPTION,
+    long_description=long_description,
+    version=VERSION,
+    url=REPO,
+    packages=find_packages_under(PACKAGE_PATH),
+    package_dir={PACKAGE_NAME: PACKAGE_NAME},
+    classifiers=[
+        "Programming Language :: Python :: 3.7"
+    ],
+)
+
+
+def upload_distribution():
+    repo_user = "krinj"
+    repo_pass = "089wA6DLZxq2"
+    command = f"twine upload -u {repo_user} -p {repo_pass} dist/*"
+    os.system(command)
+
+
+upload_distribution()
+
+
+def remove_artifacts(path):
+    if os.path.exists(path):
+        rmtree(path)
+        print(f"Removed: {path}")
+
+
+remove_artifacts("build")
+remove_artifacts("dist")
+
+
+# # ===================================================================================================
+# # Upload to PyPI. Get the user and password from the environment.
+# # ===================================================================================================
+#
+# key_repo_user = "REPO_USER"
+# key_repo_pass = "REPO_PASS"
+#
+# if key_repo_user in os.environ and key_repo_pass in os.environ:
+#     repo_user = os.environ[key_repo_user]
+#     repo_pass = os.environ[key_repo_pass]
+#
+#     with open("upload_to_pypi.sh", 'w') as f:
+#         f.write('#!/usr/bin/env bash\n')
+#         f.write('pip install twine\n')
+#         f.write('twine upload -u {} -p {} dist/*\n'.format(repo_user, repo_pass))
+# else:
+#     raise Exception(f"Environment variables for uploading to PyPI not found: {key_repo_user} and {key_repo_pass}.")
