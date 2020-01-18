@@ -1,0 +1,29 @@
+# -*- coding: utf-8 -*-
+from setuptools import setup
+
+modules = \
+['hstsparser']
+install_requires = \
+['PTable>=0.9.2,<0.10.0', 'argparse>=1.4,<2.0']
+
+entry_points = \
+{'console_scripts': ['hstsparser = hstsparser:main']}
+
+setup_kwargs = {
+    'name': 'hstsparser',
+    'version': '1.1.4',
+    'description': 'A tool to parse Firefox and Chrome HSTS databases into forensic artifacts.',
+    'long_description': "# HSTS Parser\n\n[![Build Status](https://dev.azure.com/thebeanogamer/HSTSparser/_apis/build/status/Lint%20Pipeline?branchName=master)](https://dev.azure.com/thebeanogamer/HSTSparser/_build/latest?definitionId=2&branchName=master) [![Release Status](https://dev.azure.com/thebeanogamer/HSTSparser/_apis/build/status/Release%20Pipeline?branchName=master)](https://dev.azure.com/thebeanogamer/HSTSparser/_build/latest?definitionId=7&branchName=master) [![Licence](https://img.shields.io/github/license/thebeanogamer/hstsparser)](./LICENSE) ![Python 3.8.x](https://img.shields.io/badge/python-3.8.x-yellow.svg) [![PyPI](https://img.shields.io/pypi/v/hstsparser)](https://pypi.org/project/hstsparser)\n\nHSTS Parser is a simple tool to parse Firefox and Chrome's HSTS databases into actually helpful forensic artifacts! You can read more about the research behind this tool and potential uses for it over on [my blog](https://blog.daniel-milnes.uk/hsts-for-forensics-you-can-run-but-you-cant)!\n\n## Installation\n\nHSTS Parser can be installed via pip, or with [Poetry](https://python-poetry.org/).\n\n### From PyPi\n\n```bash\npip install hstsparser\n```\n\n### Poetry (Linux)\n\n```bash\ncurl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python\npoetry install --no-dev\n```\n\n### Poetry (Windows)\n\n```powershell\n(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python\npoetry install --no-dev\n```\n\nAlternatively, if you're using Windows, you can use the executables on the [releases page](https://github.com/thebeanogamer/hstsparser/releases/latest) to not need to install anything at all.\n\n## Usage\n\nAll of the below documentation is written for the Python version rather than the standalone executable, but the commands will be the same.\n\n```shell\n$ hstsparser -h\nusage: hstsparser [-h] [-w WORDLIST] [--csv CSV] (--firefox | --chrome) FILE\n\nProcess HSTS databases\n\npositional arguments:\n  FILE         The path to the database to be processed\n\noptional arguments:\n  -h, --help   show this help message and exit\n  -w WORDLIST  The path to the database to be processed\n  --csv CSV    Output to a CSV file\n  --firefox    Process a Firefox database\n  --chrome     Process a Chrome database\n```\n\n### Examples\n\n#### Firefox\n\n```shell\nhstsparser --firefox SiteSecurityServiceState.txt\n```\n\n#### Chrome\n\n```shell\nhstsparser --chrome TransportSecurity\n```\n\n#### Chrome with Wordlist\n\n```shell\nhstsparser -w wordlist.txt --chrome TransportSecurity\n```\n\n## Screenshots\n\n### Firefox\n\n![Screenshot of Firefox Processing](https://blog.daniel-milnes.uk/content/images/2019/11/image-3.png)\n\n### Chrome with Wordlist\n\n![Screenshot of Chrome Processing with a wordlist](https://blog.daniel-milnes.uk/content/images/2019/11/image-4.png)\n\n## Links\n\n- [My Blog Post](https://blog.daniel-milnes.uk/hsts-for-forensics-you-can-run-but-you-cant)\n- [MDN - HSTS](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security)\n- [Chromium - HSTS](https://www.chromium.org/sts)\n",
+    'author': 'Daniel Milnes',
+    'author_email': 'thebeanogamer@gmail.com',
+    'maintainer': None,
+    'maintainer_email': None,
+    'url': 'https://github.com/thebeanogamer/hstsparser',
+    'py_modules': modules,
+    'install_requires': install_requires,
+    'entry_points': entry_points,
+    'python_requires': '>=3.8,<4.0',
+}
+
+
+setup(**setup_kwargs)
