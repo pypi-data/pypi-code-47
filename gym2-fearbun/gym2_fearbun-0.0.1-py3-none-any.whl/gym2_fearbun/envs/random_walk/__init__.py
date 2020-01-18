@@ -1,0 +1,1 @@
+from gym2_fearbun.envs.random_walk.random_walk import RandomWalk
