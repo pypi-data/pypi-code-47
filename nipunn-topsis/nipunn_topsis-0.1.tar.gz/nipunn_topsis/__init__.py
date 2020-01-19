@@ -1,0 +1,1 @@
+from nipunn_topsis.TOPSIS import calc_perfomance()
