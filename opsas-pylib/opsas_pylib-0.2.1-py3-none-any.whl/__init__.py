@@ -1,0 +1,2 @@
+VERSION = "0.2.1"
+VERSION_IS_SNAP = True
